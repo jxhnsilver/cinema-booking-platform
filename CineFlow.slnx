@@ -1,2 +1,6 @@
 <Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/CineFlow.BuildingBlocks/CineFlow.BuildingBlocks.csproj" Id="e4add5be-e65e-4d67-9389-0c70517d5143" />
+  </Folder>
 </Solution>
