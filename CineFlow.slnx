@@ -3,4 +3,14 @@
   <Folder Name="/src/BuildingBlocks/">
     <Project Path="src/BuildingBlocks/CineFlow.BuildingBlocks/CineFlow.BuildingBlocks.csproj" Id="e4add5be-e65e-4d67-9389-0c70517d5143" />
   </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/CineFlow.Booking/">
+    <Project Path="src/Services/CineFlow.Booking/CineFlow.Booking.Api/CineFlow.Booking.Api.csproj" Id="12058828-5b8a-499b-92b6-e89866330e55" />
+  </Folder>
+  <Folder Name="/src/Services/CineFlow.Catalog/">
+    <Project Path="src/Services/CineFlow.Catalog/CineFlow.Catalog.Api/CineFlow.Catalog.Api.csproj" Id="3f27a82f-9bbd-4c6c-a6a1-f4c214f7ea39" />
+  </Folder>
+  <Folder Name="/src/Services/CineFlow.Pricing/">
+    <Project Path="src/Services/CineFlow.Pricing/CineFlow.Pricing.Api/CineFlow.Pricing.Api.csproj" Id="877875df-b98e-4fc9-9f19-2500cea6130f" />
+  </Folder>
 </Solution>
