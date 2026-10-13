@@ -1,6 +1,6 @@
 ﻿using CineFlow.BuildingBlocks.Exceptions;
 
-namespace CineFlow.Catalog.Api.Domain.Halls;
+namespace CineFlow.Catalog.Api.Entities.Halls;
 
 public sealed class Seat
 {

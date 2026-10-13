@@ -1,6 +1,6 @@
 ﻿using CineFlow.BuildingBlocks.Exceptions;
 
-namespace CineFlow.Catalog.Api.Domain.Movies;
+namespace CineFlow.Catalog.Api.Entities.Movies;
 
 public sealed class Movie
 {

@@ -1,6 +1,6 @@
 ﻿using CineFlow.BuildingBlocks.Exceptions;
 
-namespace CineFlow.Catalog.Api.Domain.Showtimes;
+namespace CineFlow.Catalog.Api.Entities.Showtimes;
 
 public sealed class Showtime
 {
