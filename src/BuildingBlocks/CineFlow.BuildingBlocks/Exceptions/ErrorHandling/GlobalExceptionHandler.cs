@@ -5,15 +5,10 @@ using Microsoft.Extensions.Logging;
 
 namespace CineFlow.BuildingBlocks.Exceptions.ErrorHandling;
 
-public sealed class GlobalExceptionHandler : IExceptionHandler
+public sealed class GlobalExceptionHandler(
+    ILogger<GlobalExceptionHandler> logger)
+    : IExceptionHandler
 {
-    private readonly ILogger<GlobalExceptionHandler> _logger;
-
-    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
-    {
-        _logger = logger;
-    }
-
     public async ValueTask<bool> TryHandleAsync(
         HttpContext context, Exception exception, CancellationToken ct)
     {
@@ -27,7 +22,7 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
 
         if (status == StatusCodes.Status500InternalServerError)
         {
-            _logger.LogError(
+            logger.LogError(
                 exception,
                 "Unhandled exception while processing {HttpMethod} {RequestPath}. " +
                 "TraceId: {TraceId}. ExceptionType: {ExceptionType}",
@@ -45,7 +40,7 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
             Detail = status == StatusCodes.Status500InternalServerError
                 ? null
                 : exception.Message,
-            Instance = context.Request.Path,
+            Instance = $"{context.Request.Method} {context.Request.Path}",
             Type = type,
         }, ct);
 
