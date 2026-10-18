@@ -10,11 +10,12 @@ public sealed class ShowtimeConfiguration : IEntityTypeConfiguration<Showtime>
 {
     public void Configure(EntityTypeBuilder<Showtime> builder)
     {
-        builder.ToTable("screenings");
+        builder.ToTable("showtime");
 
         builder.HasKey(showtime => showtime.Id);
 
         builder.Property(showtime => showtime.Id)
+            .HasColumnName("showtime_id")
             .ValueGeneratedNever();
 
         builder.Property(showtime => showtime.MovieId)

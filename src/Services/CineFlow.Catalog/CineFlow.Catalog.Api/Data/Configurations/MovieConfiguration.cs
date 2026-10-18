@@ -13,6 +13,7 @@ public sealed class MovieConfiguration : IEntityTypeConfiguration<Movie>
         builder.HasKey(movie => movie.Id);
 
         builder.Property(movie => movie.Id)
+            .HasColumnName("movie_id")
             .ValueGeneratedNever();
 
         builder.Property(movie => movie.Title)

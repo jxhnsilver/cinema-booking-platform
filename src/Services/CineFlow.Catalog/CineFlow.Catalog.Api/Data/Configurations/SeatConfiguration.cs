@@ -8,11 +8,12 @@ public sealed class SeatConfiguration : IEntityTypeConfiguration<Seat>
 {
     public void Configure(EntityTypeBuilder<Seat> builder)
     {
-        builder.ToTable("hall_seats");
+        builder.ToTable("seats");
 
         builder.HasKey(seat => seat.Id);
 
         builder.Property(seat => seat.Id)
+            .HasColumnName("seat_id")
             .ValueGeneratedNever();
 
         builder.Property(seat => seat.HallId)
@@ -20,24 +21,20 @@ public sealed class SeatConfiguration : IEntityTypeConfiguration<Seat>
             .IsRequired();
 
         builder.Property(seat => seat.Row)
-            .HasColumnName("row_number")
+            .HasColumnName("row")
             .IsRequired();
 
         builder.Property(seat => seat.Number)
-            .HasColumnName("seat_number")
+            .HasColumnName("number")
             .IsRequired();
 
-        builder.Property(seat => seat.Type)
+        builder.Property(seat => seat.Category)
+            .HasColumnName("category")
             .HasConversion<string>()
             .HasMaxLength(20)
             .IsRequired();
 
         builder.HasIndex(seat => new { seat.HallId, seat.Row, seat.Number })
             .IsUnique();
-
-        builder.HasOne<Hall>()
-            .WithMany()
-            .HasForeignKey(seat => seat.HallId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

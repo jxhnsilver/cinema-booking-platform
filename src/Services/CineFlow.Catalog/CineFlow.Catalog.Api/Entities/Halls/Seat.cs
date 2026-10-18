@@ -8,9 +8,11 @@ public sealed class Seat
     public Guid HallId { get; init; }
     public int Row { get; private set; }
     public int Number { get; private set; }
-    public SeatType Type { get; private set; }
+    public SeatCategory Category { get; private set; }
 
-    public Seat(Guid id, Guid hallId, int row, int number, SeatType type)
+    private Seat() { }
+
+    public Seat(Guid id, Guid hallId, int row, int number, SeatCategory category)
     {
         if (id == Guid.Empty)
             throw new InvariantViolationException("ID cannot be empty.");
@@ -18,16 +20,14 @@ public sealed class Seat
         if (hallId == Guid.Empty)
             throw new InvariantViolationException("Hall ID cannot be empty.");
 
-        if (row < 0)
-            throw new InvariantViolationException("Row must be a non-negative number.");
-
-        if (number < 0)
-            throw new InvariantViolationException("Number must be a non-negative number.");
+        if (row < 1 || number < 1)
+            throw new InvariantViolationException(
+                "Row and seat numbers must be positive.");
 
         Id = id;
         HallId = hallId;
         Row = row;
         Number = number;
-        Type = type;
+        Category = category;
     }
 }

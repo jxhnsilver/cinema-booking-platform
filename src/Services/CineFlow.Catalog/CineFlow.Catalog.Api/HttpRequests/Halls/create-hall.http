@@ -1,0 +1,58 @@
+@HostUrl = https://localhost:7297
+
+### 1. Successful hall creation (with VIP zone)
+POST {{HostUrl}}/api/halls
+Content-Type: application/json
+
+{
+  "name": "IMAX Hall",
+  "rows": [
+    {
+      "rowNumber": 1,
+      "segments": [
+        { "firstSeatNumber": 1, "seatCount": 20, "category": "Standard" }
+      ]
+    },
+    {
+      "rowNumber": 2,
+      "segments": [
+        { "firstSeatNumber": 1, "seatCount": 9, "category": "Standard" },
+        { "firstSeatNumber": 10, "seatCount": 2, "category": "Vip" },
+        { "firstSeatNumber": 12, "seatCount": 9, "category": "Standard" }
+      ]
+    }
+  ]
+}
+
+### 2. Validation error (Empty name)
+POST {{HostUrl}}/api/halls
+Content-Type: application/json
+
+{
+  "name": "",
+  "rows": [
+    {
+      "rowNumber": 1,
+      "segments": [
+        { "firstSeatNumber": 1, "seatCount": 10, "category": "Standard" }
+      ]
+    }
+  ]
+}
+
+### 3. Domain invariant error (Seat overlap in a row)
+POST {{HostUrl}}/api/halls
+Content-Type: application/json
+
+{
+  "name": "IMAX Hall",
+  "rows": [
+    {
+      "rowNumber": 1,
+      "segments": [
+        { "firstSeatNumber": 1, "seatCount": 10, "category": "Standard" },
+        { "firstSeatNumber": 5, "seatCount": 5, "category": "Vip" }
+      ]
+    }
+  ]
+}

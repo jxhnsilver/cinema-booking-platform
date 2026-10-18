@@ -25,7 +25,8 @@ namespace CineFlow.Catalog.Api.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CineFlow.Catalog.Api.Entities.Halls.Hall", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("hall_id");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -40,7 +41,14 @@ namespace CineFlow.Catalog.Api.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CineFlow.Catalog.Api.Entities.Halls.Seat", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("seat_id");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("category");
 
                     b.Property<Guid>("HallId")
                         .HasColumnType("uuid")
@@ -48,29 +56,25 @@ namespace CineFlow.Catalog.Api.Infrastructure.Persistence.Migrations
 
                     b.Property<int>("Number")
                         .HasColumnType("integer")
-                        .HasColumnName("seat_number");
+                        .HasColumnName("number");
 
                     b.Property<int>("Row")
                         .HasColumnType("integer")
-                        .HasColumnName("row_number");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
+                        .HasColumnName("row");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HallId", "Row", "Number")
                         .IsUnique();
 
-                    b.ToTable("hall_seats", (string)null);
+                    b.ToTable("seats", (string)null);
                 });
 
             modelBuilder.Entity("CineFlow.Catalog.Api.Entities.Movies.Movie", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("movie_id");
 
                     b.Property<int>("DurationMinutes")
                         .HasColumnType("integer")
@@ -89,7 +93,8 @@ namespace CineFlow.Catalog.Api.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CineFlow.Catalog.Api.Entities.Showtimes.Showtime", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("showtime_id");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp with time zone")
@@ -113,13 +118,13 @@ namespace CineFlow.Catalog.Api.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("HallId", "StartTime");
 
-                    b.ToTable("screenings", (string)null);
+                    b.ToTable("showtime", (string)null);
                 });
 
             modelBuilder.Entity("CineFlow.Catalog.Api.Entities.Halls.Seat", b =>
                 {
                     b.HasOne("CineFlow.Catalog.Api.Entities.Halls.Hall", null)
-                        .WithMany()
+                        .WithMany("Seats")
                         .HasForeignKey("HallId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -138,6 +143,11 @@ namespace CineFlow.Catalog.Api.Infrastructure.Persistence.Migrations
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CineFlow.Catalog.Api.Entities.Halls.Hall", b =>
+                {
+                    b.Navigation("Seats");
                 });
 #pragma warning restore 612, 618
         }

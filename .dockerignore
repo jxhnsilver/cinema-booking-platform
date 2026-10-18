@@ -4,3 +4,6 @@
 *.user
 appsettings.Development.json
 .git/
+.env
+.env.*
+!.env.example

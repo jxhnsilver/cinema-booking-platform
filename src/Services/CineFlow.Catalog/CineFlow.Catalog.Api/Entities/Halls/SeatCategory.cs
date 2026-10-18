@@ -1,6 +1,6 @@
 ﻿namespace CineFlow.Catalog.Api.Entities.Halls;
 
-public enum SeatType
+public enum SeatCategory
 {
     Standard,
     Vip

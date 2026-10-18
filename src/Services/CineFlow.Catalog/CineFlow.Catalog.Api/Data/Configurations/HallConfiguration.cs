@@ -13,10 +13,21 @@ public sealed class HallConfiguration : IEntityTypeConfiguration<Hall>
         builder.HasKey(hall => hall.Id);
 
         builder.Property(hall => hall.Id)
+            .HasColumnName("hall_id")
             .ValueGeneratedNever();
 
         builder.Property(hall => hall.Name)
             .HasMaxLength(100)
             .IsRequired();
+
+        builder.HasMany(hall => hall.Seats)
+            .WithOne()
+            .HasForeignKey(seat => seat.HallId)
+            .IsRequired()
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Navigation(hall => hall.Seats)
+            .HasField("_seats")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

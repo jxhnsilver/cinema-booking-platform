@@ -8,6 +8,8 @@ public sealed class Movie
     public string Title { get; private set; }
     public int DurationMinutes { get; private set; }
 
+    private Movie() { }
+
     public Movie(Guid id, string title, int durationMinutes)
     {
         if (string.IsNullOrWhiteSpace(title))
