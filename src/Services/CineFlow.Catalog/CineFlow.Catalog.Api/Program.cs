@@ -7,6 +7,10 @@ using CineFlow.Catalog.Api.Features.Movies.Create;
 using CineFlow.Catalog.Api.Features.Movies.Delete;
 using CineFlow.Catalog.Api.Features.Movies.GetAll;
 using CineFlow.Catalog.Api.Features.Movies.GetById;
+using CineFlow.Catalog.Api.Features.Showtimes.CreateSingle;
+using CineFlow.Catalog.Api.Features.Showtimes.Cancel;
+using CineFlow.Catalog.Api.Features.Showtimes.Update;
+using CineFlow.Catalog.Api.Workers;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -23,6 +27,11 @@ builder.Services.AddScoped<DeleteMovieUseCase>();
 builder.Services.AddScoped<CreateHallUseCase>();
 builder.Services.AddScoped<GetAllHallsUseCase>();
 builder.Services.AddScoped<GetHallByIdUseCase>();
+builder.Services.AddScoped<CreateShowtimeUseCase>();
+builder.Services.AddScoped<UpdateShowtimeUseCase>();
+builder.Services.AddScoped<CancelShowtimeUseCase>();
+builder.Services.AddHostedService<ShowtimeStartWorker>();
+builder.Services.AddHostedService<ShowtimeCompleteWorker>();
 
 builder.Services.AddExceptionHandling();
 
