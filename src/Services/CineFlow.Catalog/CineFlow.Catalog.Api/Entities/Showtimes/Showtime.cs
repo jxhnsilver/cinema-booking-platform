@@ -14,6 +14,21 @@ public sealed class Showtime
     private Showtime() { }
 
     public Showtime(Guid id, Guid movieId, Guid hallId, DateTime startTime, DateTime endTime)
+    {    
+        Id = id;
+        MovieId = movieId;
+        HallId = hallId;
+        StartTime = startTime;
+        EndTime = endTime;
+        Status = ShowtimeStatus.Scheduled;
+    }
+
+    public static Showtime Create(
+        Guid id,
+        Guid movieId,
+        Guid hallId,
+        DateTime startTime,
+        DateTime endTime)
     {
         if (id == Guid.Empty)
             throw new InvariantViolationException("ID cannot be empty.");
@@ -30,21 +45,7 @@ public sealed class Showtime
         if (endTime <= startTime)
             throw new InvariantViolationException("End time must be greater than start time.");
 
-        Id = id;
-        MovieId = movieId;
-        HallId = hallId;
-        StartTime = startTime;
-        EndTime = endTime;
-        Status = ShowtimeStatus.Scheduled;
-    }
-
-    public static Showtime Create(
-        Guid movieId,
-        Guid hallId,
-        DateTime startTime,
-        DateTime endTime)
-    {
-        return new Showtime(Guid.NewGuid(), movieId, hallId, startTime, endTime);
+        return new Showtime(id, movieId, hallId, startTime, endTime);
     }
 
     public void UpdateSchedule(
