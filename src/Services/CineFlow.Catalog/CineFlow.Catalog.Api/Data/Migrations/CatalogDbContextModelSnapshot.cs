@@ -112,11 +112,23 @@ namespace CineFlow.Catalog.Api.Infrastructure.Persistence.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("start_time");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasDefaultValue("Scheduled")
+                        .HasColumnName("status");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MovieId");
 
                     b.HasIndex("HallId", "StartTime");
+
+                    b.HasIndex("Status", "EndTime");
+
+                    b.HasIndex("Status", "StartTime");
 
                     b.ToTable("showtime", (string)null);
                 });

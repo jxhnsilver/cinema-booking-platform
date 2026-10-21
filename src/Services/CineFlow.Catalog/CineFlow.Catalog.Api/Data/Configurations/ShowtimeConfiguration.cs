@@ -34,7 +34,16 @@ public sealed class ShowtimeConfiguration : IEntityTypeConfiguration<Showtime>
             .HasColumnName("end_time")
             .IsRequired();
 
+        builder.Property(showtime => showtime.Status)
+            .HasColumnName("status")
+            .HasConversion<string>()
+            .HasMaxLength(32)
+            .HasDefaultValue(ShowtimeStatus.Scheduled)
+            .IsRequired();
+
         builder.HasIndex(showtime => new { showtime.HallId, showtime.StartTime });
+        builder.HasIndex(showtime => new { showtime.Status, showtime.StartTime });
+        builder.HasIndex(showtime => new { showtime.Status, showtime.EndTime });
 
         builder.HasOne<Movie>()
             .WithMany()
