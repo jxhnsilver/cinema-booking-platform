@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CineFlow.Catalog.Api.Features.Showtimes.CreateSingle;
+namespace CineFlow.Catalog.Api.Features.Showtimes.Create;
 
 public sealed record CreateShowtimeRequest
 {

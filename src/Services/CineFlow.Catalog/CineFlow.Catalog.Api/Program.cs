@@ -7,7 +7,7 @@ using CineFlow.Catalog.Api.Features.Movies.Create;
 using CineFlow.Catalog.Api.Features.Movies.Delete;
 using CineFlow.Catalog.Api.Features.Movies.GetAll;
 using CineFlow.Catalog.Api.Features.Movies.GetById;
-using CineFlow.Catalog.Api.Features.Showtimes.CreateSingle;
+using CineFlow.Catalog.Api.Features.Showtimes.Create;
 using CineFlow.Catalog.Api.Features.Showtimes.Cancel;
 using CineFlow.Catalog.Api.Features.Showtimes.GetAll;
 using CineFlow.Catalog.Api.Features.Showtimes.GetById;

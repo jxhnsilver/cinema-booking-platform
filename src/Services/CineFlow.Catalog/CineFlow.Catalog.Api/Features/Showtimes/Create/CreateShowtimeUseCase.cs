@@ -4,7 +4,7 @@ using CineFlow.Catalog.Api.Validators.Showtimes;
 using CineFlow.BuildingBlocks.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace CineFlow.Catalog.Api.Features.Showtimes.CreateSingle;
+namespace CineFlow.Catalog.Api.Features.Showtimes.Create;
 
 public sealed class CreateShowtimeUseCase(CatalogDbContext context)
 {
@@ -22,6 +22,7 @@ public sealed class CreateShowtimeUseCase(CatalogDbContext context)
             throw new NotFoundException("Hall was not found.");
 
         var showtime = Showtime.Create(
+            Guid.NewGuid(),
             request.MovieId,
             request.HallId,
             request.StartTime,
@@ -34,7 +35,11 @@ public sealed class CreateShowtimeUseCase(CatalogDbContext context)
         await context.SaveChangesAsync(ct);
 
         return new CreateShowtimeResponse(
-            showtime.Id, showtime.MovieId, showtime.HallId,
-            showtime.StartTime, showtime.EndTime, showtime.Status);
+            showtime.Id, 
+            showtime.MovieId, 
+            showtime.HallId,
+            showtime.StartTime, 
+            showtime.EndTime, 
+            showtime.Status);
     }
 }

@@ -1,6 +1,5 @@
 using CineFlow.BuildingBlocks.Exceptions;
 using CineFlow.Catalog.Api.Data;
-using CineFlow.Catalog.Api.Entities.Showtimes;
 using CineFlow.Catalog.Api.Validators.Showtimes;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,24 +32,16 @@ public sealed class UpdateShowtimeUseCase(CatalogDbContext context)
             request.StartTime,
             endTime);
 
-        await using var transaction =
-            await context.Database.BeginTransactionAsync(ct);
-
         await HallScheduleConflictValidator.EnsureRescheduledShowtimeFitsHallScheduleAsync(
             context, showtime, ct);
 
         await context.SaveChangesAsync(ct);
-        await transaction.CommitAsync(ct);
         return new UpdateShowtimeResponse(
-            showtime.Id, showtime.MovieId, showtime.HallId,
-            showtime.StartTime, showtime.EndTime, showtime.Status);
+            showtime.Id, 
+            showtime.MovieId, 
+            showtime.HallId,
+            showtime.StartTime, 
+            showtime.EndTime, 
+            showtime.Status);
     }
 }
-
-public sealed record UpdateShowtimeResponse(
-    Guid Id,
-    Guid MovieId,
-    Guid HallId,
-    DateTime StartTime,
-    DateTime EndTime,
-    ShowtimeStatus Status);

@@ -1,9 +1,9 @@
-using CineFlow.Catalog.Api.Features.Showtimes.CreateSingle;
+using CineFlow.Catalog.Api.Entities.Showtimes;
 using CineFlow.Catalog.Api.Features.Showtimes.Cancel;
+using CineFlow.Catalog.Api.Features.Showtimes.Create;
 using CineFlow.Catalog.Api.Features.Showtimes.GetAll;
 using CineFlow.Catalog.Api.Features.Showtimes.GetById;
 using CineFlow.Catalog.Api.Features.Showtimes.Update;
-using CineFlow.Catalog.Api.Entities.Showtimes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CineFlow.Catalog.Api.Controllers;
@@ -12,9 +12,6 @@ namespace CineFlow.Catalog.Api.Controllers;
 [ApiController]
 public sealed class ShowtimesController : ControllerBase
 {
-    /// <summary>Returns showtimes, optionally filtered by start date and status.</summary>
-    /// <param name="fromDate">Only showtimes starting on or after this date.</param>
-    /// <param name="status">Only showtimes with this status.</param>
     [HttpGet]
     public async Task<ActionResult<GetAllShowtimesResponse>> GetAll(
         [FromQuery] DateTime? fromDate,
@@ -41,7 +38,7 @@ public sealed class ShowtimesController : ControllerBase
         CancellationToken ct)
     {
         var response = await useCase.ExecuteAsync(request, ct);
-        return Ok(response);
+        return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
     }
 
     [HttpPut("{id:guid}")]
